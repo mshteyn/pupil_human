@@ -1,0 +1,492 @@
+/*
+Regularity Oddball with Attentional Control 
+Michael Shteyn
+07/13/2016
+
+PLEXON CODES
+10 Start Plexon
+20 Begin Trial
+30 Fixation Crosshair appears
+31 Spacebar pressed, Fixating Crosshair
+
+33 witch = 1
+34 witch = 2
+
+35 Oddball Stim 1
+36 Oddball Stim 2
+
+
+
+41 Rep 1 On
+42 Rep 2 On
+43 Rep 3 On
+44
+45
+46
+47
+48
+49
+50
+
+51 Rep 1 Stim 2 On
+52 Rep 2 Stim 2 On
+
+
+55 Neither Stroke
+57 Response Timeout
+61 L Stroke
+62 R Stroke
+65 Spacebar
+69 Wrong Target
+70 Success
+76 Fail (flag triggered)
+90 Reward
+99 Stop Plexon
+100+cond Condition number for trial
+1000+trial Trial number for trial
+2000+block Block number for trial
+7001 ProgramID
+*/
+
+#include "css_inc.h"
+
+void begin_trial();
+void fix_spot_on(); 
+void acquire_fixation();
+void get_key();
+void Lead_on();
+void response();
+void object_off(); 
+void give_reward();
+void finish_trial();
+void inter_trial_interval();
+void start_plexon();
+void write_plexon(int code);
+void stop_plexon();
+
+#define WAIT_PUPIL     50 
+#define ACQUIRE_FIX  5000
+#define MN_FIX_DELAY  200
+#define MX_FIX_DELAY  400
+#define STIM_ON        50
+#define INTRA_DELAY   100
+#define INTER_DELAY   450
+#define MV_DELAY     2000  /*delay for mvmnt*/
+#define FB_DELAY      500
+#define FB_ON         250  /*feedback of right or wrong */
+#define REWARD_TIME   400
+#define REWARD_CLICKS   1
+#define T_PAUSE       150
+#define ITI_CORR      500
+#define ITI_FAIL      500
+
+
+#define allocation_flag _int0
+#define loc _int1
+#define P _pint0
+#define XX _pfloat1
+#define YY _pfloat2
+/* #define GLOBAL_RIGHT _pfloat9
+#define GLOBAL_WRONG _pfloat10
+#define GLOBAL_TRIALS _int0 */
+
+int cond, block, trial, fail_flag, K, ob_pos, stimct, witch1, witch2;
+
+
+main(){
+     //Gon_off(5,1); //INTERIM SCREEN
+     //Gflush(1);     //INTERIM SCREEN 
+     start_plexon(); 	// code 10 
+
+     if (get_trial_num() < 1)
+    {
+      /*  GLOBAL_RIGHT = 0;
+        GLOBAL_WRONG = 0;
+        GLOBAL_TRIALS = 0;*/
+    }
+	 
+     cond = BLOCKget_cond_num();
+     trial = get_trial_num()+1;
+     block = get_block_num();
+	 
+     write_plexon(7001); // program ID 
+     write_plexon(100+cond); // 100 + condition number 
+     write_plexon(1000+trial); // 1000 + trial number 
+     write_plexon(2000+block); // 2000 + block number 
+	 
+     begin_trial();         // code 20 
+
+     fix_spot_on(); //acquire fixation 
+        
+	 get_key();   
+	 
+     if (fail_flag == 0){
+         Lead_on(); 
+     }
+
+     if (fail_flag == 0){
+          response();
+          write_plexon(50); // response about stimulus identity 
+     }   
+
+     
+     if (fail_flag == 0){
+          give_reward();
+          write_plexon(90); // reward 
+     }
+     else {
+		write_plexon(76);
+		Mprintf(3, "Fail");
+     }
+
+     finish_trial();
+     stop_plexon();
+     inter_trial_interval(); 
+
+     }
+
+void begin_trial(){
+     long current; 
+     if (allocation_flag != 999){
+          DEVoutp(0,0x1,255); // erase port B 
+          DEVoutp(0,0x2,255); // erase port C 
+          DEVoutp(1,0x1,255); // erase port B 
+          DEVoutp(1,0x2,255); // erase port C 
+          DEVoutp(1,0x3,128); // Card2: A:OUT, B:OUT, CL:OUT, CU:IN 
+          DEVoutp(2,0x3,145); // Card3: A:IN, B:OUT, CL:IN, CU:OUT 
+          DEVoutp(2,0x1,255); // erase port B 
+          DEVoutp(2,0x2,255); // erase port C 
+          XX = calloc(7, sizeof(float));
+          YY = calloc(7, sizeof(float));
+          loc = 0;
+
+          fail_flag = 0;
+          P = calloc(8,sizeof(pint));
+          srand2(time(&current));
+
+     }
+     allocation_flag = 999;
+     display_histogram();
+     display_trial_progress(1);
+     write_plexon(20); 
+     put_eye_data_in_buf(1);
+     collect_data(1);
+     start_trial(15);
+     Gpriority(0,1); 
+     return;
+}
+
+void fix_spot_on(){
+	 set_timer(WAIT_PUPIL);
+	 while(timer_expired()==0){
+	 }
+     Gon_off(3,1);
+	 Gflush(1);
+	 write_plexon(30); // fix spot on 
+	 return;
+}
+
+void get_key(){
+
+     set_timer(ACQUIRE_FIX);
+     KeyHit();
+     while(timer_expired() == 0){
+  	// sample the keyboard, the keyboard keys are defined in css_inc.h 
+	 
+		if (KeyPressed()) {
+			
+			switch(GetAKey()){
+				case K_SPACEBAR:
+					write_plexon(31);
+					Gon_off(3,0);
+					Gon_off(0,1);
+					Gflush(1);
+					KeyHit();
+					return;
+					}
+			}
+	}
+	
+	fail_flag = 1;
+	return;
+}
+
+void Lead_on(){
+
+     Gon_off(0,1);
+     Gon_off(1,0);
+     Gon_off(2,0);
+     Gon_off(3,0);
+     Gon_off(4,0);
+     Gflush(1);
+
+	 set_random_interval(MN_FIX_DELAY,MX_FIX_DELAY,50);
+	 while(timer_expired()==0);
+	 
+	if (cond >26 & cond<33){
+		ob_pos =4;
+	}
+	
+	if (cond >32){
+		ob_pos = 5;
+	} 
+	
+	 Gon_off(0,0);
+	 
+	 stimct =1;
+	 while(stimct<8){
+	 
+		witch1 = random(1,3); //witch test
+		witch2 = 1;
+		
+		if (witch1 == 1){
+			witch2 =2;
+		}
+		
+		if (witch1 ==2) {
+			witch2 =1;
+		}
+	 
+		if (stimct == ob_pos){
+			set_timer(STIM_ON);
+			Gon_off(1,1);
+			Gflush(1);
+			write_plexon(35);
+			while(timer_expired()==0);
+			Gon_off(1,0);
+			Gflush(1);
+			write_plexon(39);
+			
+			set_timer(INTRA_DELAY);
+			while(timer_expired()==0);
+			
+			set_timer(STIM_ON);
+			Gon_off(4,1);
+			Gflush(1);
+			write_plexon(36);
+			while(timer_expired()==0);
+			Gon_off(4,0);
+			Gflush(1);
+			ob_pos = 0; //Clear value
+			write_plexon(39);
+		}
+		
+		else{
+			set_timer(STIM_ON);
+			Gon_off(witch1,1);
+			Gflush(1);
+			write_plexon(40+stimct);
+			write_plexon(31+witch1);
+			while(timer_expired()==0);
+			Gon_off(witch1,0);
+			Gflush(1);
+			write_plexon(39);
+			
+			set_timer(INTRA_DELAY);
+			while(timer_expired()==0);
+			
+			set_timer(STIM_ON);
+			Gon_off(witch2,1);
+			Gflush(1);
+			write_plexon(50+stimct);
+			write_plexon(31+witch2);
+			while(timer_expired()==0);
+			Gon_off(witch2,0);
+			Gflush(1);
+			write_plexon(39);
+		}
+		
+		stimct = stimct+1;
+		set_timer(INTER_DELAY);
+		while(timer_expired()==0);
+	}
+	 
+	 Gon_off(0,1);
+	 Gflush(1);
+     return;
+}
+
+void response(){
+	 
+     block = BLOCKget_block_num();
+     set_timer(MV_DELAY);
+	 KeyHit(); // CLEAR BUFFER
+     while(timer_expired() == 0){
+	 
+		// sample the keyboard, the keyboard keys are defined in css_inc.h 
+  	
+		if(KeyPressed()){
+			
+			switch(GetAKey()){
+			
+				case K_LEFTARROW: 
+					write_plexon(61);
+                                        if (cond == 27 | cond == 29 | cond == 33 | cond == 35){ // if cond is even
+						fail_flag = 0;
+						Mprintf(3,"Correct");
+						write_plexon(70);
+						return;
+						}
+					else
+					{
+						fail_flag = 1;
+						Mprintf(3, "Fail");
+						write_plexon(69);
+						return;
+					}
+						
+				
+				case K_RIGHTARROW:
+					write_plexon(62);
+					if (cond == 28 | cond == 30 | cond == 34 | cond == 36){ // if cond is even
+						fail_flag = 0;
+						Mprintf(3,"Correct");
+						write_plexon(70);
+						return;
+						}
+					else
+					{
+						fail_flag = 1;
+						Mprintf(3, "Fail");
+						write_plexon(69);
+						return;
+					}
+					
+				case K_SPACEBAR:
+					write_plexon(65);
+					if (cond>2 & cond<27 | cond == 31 | cond == 32 | cond == 37 | cond == 38){
+						fail_flag = 0;
+						Mprintf(3,"Correct");
+						write_plexon(70);
+						return;
+					}
+					
+					else{
+					fail_flag = 1;
+					Mprintf(3, "Fail");
+					write_plexon(69);
+					return;
+					
+					}
+					
+			}
+		}
+	}	
+	
+	fail_flag = 1;
+	write_plexon(75);
+	return;
+	 
+}
+	
+
+void give_reward(){
+
+	Gon_off(0,0); //Off response cue
+	Gflush(1);
+
+     K = 0; 
+     while(K < REWARD_CLICKS){
+          DEVoutp(2,0x1,255);
+          DEVoutp(2,0x1,239);
+          MS_TIMERset (2,REWARD_TIME);
+          while (MS_TIMERcheck(2) != 0);
+          DEVoutp(2,0x1,255);
+          response_correct(0);
+          K = K + 1; 
+          set_timer(50);
+          while (timer_expired() == 0);
+     }
+     return;
+}
+
+void finish_trial(){
+
+     Gon_off(0,0);
+     Gon_off(1,0);
+     Gon_off(2,0);
+     Gon_off(3,0);
+     Gon_off(4,0);
+     Gon_off(5,0);
+     Gflush(1);
+     Gpurge();
+     KeyHit();
+     display_trial_progress(0);
+     update_histogram();
+     display_trial_progress(0);
+     collect_data(0); 
+     clear_eog(); 
+     return;
+}
+
+
+void inter_trial_interval(){
+
+     set_timer (T_PAUSE);
+     while (timer_expired() == 0);
+     if (trial == 160){ // INTERIM SCREEN
+		Gon_off(5,0);
+		Gflush(1);
+		Gpurge();
+	 }
+	 
+	 return;
+ 
+     set_timer (ITI_CORR);
+     if (fail_flag != 0){
+          set_timer (ITI_FAIL);
+     } 
+     while (timer_expired() == 0);
+     display_eye_path(0);
+     put_eye_data_in_buf(0);
+     return;
+}
+
+/* ------------ PLEXON STUFF ---------------- 
+2,1,code = Send word in "code" to Port B 
+2,2,0    = Plexon: End Input Strobed Word, End Recording 
+2,2,1    = Plexon: Begin Input word, End Recording (NEVER USED) 
+2,2,2    = Plexon: End Input Strobed Word, Keep Recording 
+2,2,3    = Plexon: Begin Recording + strobed 
+*/
+
+#define PLEXON_DEV 1
+#define PLEXON_PORT_LSB 0x0
+#define PLEXON_PORT_MSB 0x1
+#define PLEXON_PORT_CTRL 0x2
+#define PLEXON_STROBE_ON 0x3
+#define PLEXON_STROBE_OFF 0x2
+#define PLEXON_START 0x02
+#define PLEXON_STOP 0x00
+#define PLEXON_BUSY ((DEVinp(PLEXON_DEV,PLEXON_PORT_CTRL)>>4)&1)
+
+void start_plexon(){
+
+     DEVoutp(PLEXON_DEV,PLEXON_PORT_CTRL,PLEXON_START);
+     set_timer(100); /* gives plx code time to be written */
+     while(timer_expired() == 0);
+     write_plexon(98); 
+     while(PLEXON_BUSY);
+     return;
+}
+
+void stop_plexon(){
+
+     write_plexon(99);
+     while(PLEXON_BUSY);
+     set_timer(100); /* gives plx code time to be written */
+     while(timer_expired() == 0);
+     DEVoutp(PLEXON_DEV,PLEXON_PORT_CTRL,PLEXON_STOP);
+     return;
+}
+
+void write_plexon(int code){
+     encode(code);
+     while(PLEXON_BUSY); 
+     DEVoutp(PLEXON_DEV,PLEXON_PORT_LSB,code);
+     DEVoutp(PLEXON_DEV,PLEXON_PORT_MSB,code >> 8);
+     DEVoutp(PLEXON_DEV,PLEXON_PORT_CTRL,PLEXON_STROBE_ON);
+     DEVoutp(PLEXON_DEV,PLEXON_PORT_CTRL,PLEXON_STROBE_OFF);
+     while(PLEXON_BUSY);
+     return;
+}

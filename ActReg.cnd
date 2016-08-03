@@ -1,0 +1,32 @@
+COND# TEST0 TEST1 TEST2 TEST3 TEST4 TEST5 TEST6 TEST7 TEST8 TEST9 BCKGND TIMING TRIAL_TYPE FIX_ID ---COLOR-PALETTE---
+    1  0                                                          -4      1          2     -4     default.lut
+    2  0      0     0                                             -4      3          2     -4     default.lut
+    3  0      1     2    -1                                       -4      2          2     -4     default.lut
+    4  0      1     2    -1                                       -4      2          2     -4     default.lut
+    5  0      1     2    -1                                       -4      2          2     -4     default.lut
+    6  0      1     2    -1                                       -4      2          2     -4     default.lut
+    7  0      1     2    -1                                       -4      2          2     -4     default.lut
+    8  0      1     2    -1                                       -4      2          2     -4     default.lut
+    9  0      2     1    -1                                       -4      2          2     -4     default.lut
+   10  0      2     1    -1                                       -4      2          2     -4     default.lut
+   11  0      2     1    -1                                       -4      2          2     -4     default.lut
+   12  0      2     1    -1                                       -4      2          2     -4     default.lut
+   13  0      2     1    -1                                       -4      2          2     -4     default.lut
+   14  0      2     1    -1                                       -4      2          2     -4     default.lut 
+   15  0      1     2    -1                                       -4      2          2     -4     default.lut
+   16  0      1     2    -1                                       -4      2          2     -4     default.lut
+   17  0      1     2    -1                                       -4      2          2     -4     default.lut
+   18  0      1     2    -1                                       -4      2          2     -4     default.lut
+   19  0      1     2    -1                                       -4      2          2     -4     default.lut
+   20  0      1     2    -1                                       -4      2          2     -4     default.lut
+   21  0      2     1    -1                                       -4      2          2     -4     default.lut
+   22  0      2     1    -1                                       -4      2          2     -4     default.lut
+   23  0      2     1    -1                                       -4      2          2     -4     default.lut
+   24  0      2     1    -1                                       -4      2          2     -4     default.lut
+   25  0      2     1    -1                                       -4      2          2     -4     default.lut
+   26  0      2     1    -1                                       -4      2          2     -4     default.lut 
+   27  0      1     2    -1     1                                 -4      2          2     -4     default.lut
+   28  0      1     2    -1     1                                 -4      2          2     -4     default.lut
+   29  0      2     1    -1     2                                 -4      2          2     -4     default.lut
+   30  0      2     1    -1     2                                 -4      2          2     -4     default.lut
+   
