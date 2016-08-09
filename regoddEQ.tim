@@ -94,8 +94,6 @@ int cond, block, trial, fail_flag, K, ob_pos, stimct, witch1, witch2;
 
 
 main(){
-     //Gon_off(5,1); //INTERIM SCREEN
-     //Gflush(1);     //INTERIM SCREEN 
      start_plexon(); 	// code 10 
 
      if (get_trial_num() < 1)
@@ -180,7 +178,7 @@ void fix_spot_on(){
 	 set_timer(WAIT_PUPIL);
 	 while(timer_expired()==0){
 	 }
-     Gon_off(3,1);
+     Gon_off(9,1);
 	 Gflush(1);
 	 write_plexon(30); // fix spot on 
 	 return;
@@ -198,7 +196,7 @@ void get_key(){
 			switch(GetAKey()){
 				case K_SPACEBAR:
 					write_plexon(31);
-					Gon_off(3,0);
+					Gon_off(9,0);
 					Gon_off(0,1);
 					Gflush(1);
 					KeyHit();
@@ -218,27 +216,34 @@ void Lead_on(){
      Gon_off(2,0);
      Gon_off(3,0);
      Gon_off(4,0);
+	 Gon_off(5,0);
+	 Gon_off(6,0);
+	 Gon_off(7,0);
+	 Gon_off(8,0);
+	 Gon_off(9,0);
+	 
      Gflush(1);
+	 
+	 ob_pos = 0;
 
 	 set_random_interval(MN_FIX_DELAY,MX_FIX_DELAY,50);
 	 while(timer_expired()==0);
 	 
-	if (cond >50 & cond<57 | cond>62 & cond<69){
+	if (cond == 31 | cond == 32 | cond == 35 | cond == 36){
 		ob_pos = 4;
 	}
 	
-	if (cond >56 & cond<63 | cond>68){
+	if (cond == 33 | cond == 34 | cond == 37 | cond == 38){
 		ob_pos = 5;
 	} 
 	
-	 //Gon_off(0,0); ln 241 259
+	 Gon_off(0,0);
 	 
-	 stimct =1;
+	 stimct = 2;
 	 while(stimct<8){
 
 		if (stimct == ob_pos){
 			set_timer(STIM_ON);
-			Gon_off(0,0);
 			Gon_off(1,1);
 			Gflush(1);
 			write_plexon(35);
@@ -251,20 +256,19 @@ void Lead_on(){
 			while(timer_expired()==0);
 			
 			set_timer(STIM_ON);
-			Gon_off(4,1);
+			Gon_off(8,1);
 			Gflush(1);
 			write_plexon(36);
 			while(timer_expired()==0);
-			Gon_off(4,0);
-			Gon_off(0,1);
+			Gon_off(8,0);
 			Gflush(1);
 			ob_pos = 0; //Clear value
+			stimct = stimct -1;
 			write_plexon(39);
 		}
 		
 		else{
 			set_timer(STIM_ON);
-			Gon_off(0,0);
 			Gon_off(1,1);
 			Gflush(1);
 			write_plexon(40+stimct);
@@ -278,13 +282,12 @@ void Lead_on(){
 			while(timer_expired()==0);
 			
 			set_timer(STIM_ON);
-			Gon_off(0,1);
-			Gon_off(2,1);
+			Gon_off(stimct,1);
 			Gflush(1);
 			write_plexon(50+stimct);
 			write_plexon(31+2);
 			while(timer_expired()==0);
-			Gon_off(2,0);
+			Gon_off(stimct,0);
 			Gflush(1);
 			write_plexon(39);
 		}
@@ -314,7 +317,7 @@ void response(){
 			
 				case K_LEFTARROW: 
 					write_plexon(61);
-					if (cond == 51 | cond == 53 | cond == 57 | cond == 59 | cond == 63 | cond == 65 | cond == 69 | cond == 71){ // if cond is odd
+					if (cond == 31 | cond == 33 | cond == 35 | cond == 37){ // if cond is odd
 						fail_flag = 0;
 						Mprintf(3,"Correct");
 						write_plexon(70);
@@ -331,7 +334,7 @@ void response(){
 				
 				case K_RIGHTARROW:
 					write_plexon(62);
-					if (cond == 52 | cond == 54 | cond == 58 | cond == 60 | cond == 64 | cond == 66 | cond == 70 | cond == 72){ // if cond is even
+					if (cond == 32 | cond == 34 | cond == 36 | cond == 38){ // if cond is even
 						fail_flag = 0;
 						Mprintf(3,"Correct");
 						write_plexon(70);
@@ -347,7 +350,7 @@ void response(){
 					
 				case K_SPACEBAR:
 					write_plexon(65);
-					if (cond>2 & cond<51 | cond == 55 | cond == 56 | cond == 61 | cond == 62 | cond == 67 | cond == 68| cond == 73 | cond == 74){
+					if (cond>2 & cond<30){
 						fail_flag = 0;
 						Mprintf(3,"Correct");
 						write_plexon(70);
@@ -401,6 +404,10 @@ void finish_trial(){
      Gon_off(3,0);
      Gon_off(4,0);
      Gon_off(5,0);
+	 Gon_off(6,0);
+	 Gon_off(7,0);
+	 Gon_off(8,0);
+	 Gon_off(9,0);
      Gflush(1);
      Gpurge();
      KeyHit();
