@@ -231,14 +231,13 @@ void Lead_on(){
 		ob_pos = 5;
 	} 
 	
-	 //Gon_off(0,0); ln 241 259
+	 Gon_off(0,0);
 	 
 	 stimct =1;
 	 while(stimct<8){
 
 		if (stimct == ob_pos){
 			set_timer(STIM_ON);
-			Gon_off(0,0);
 			Gon_off(1,1);
 			Gflush(1);
 			write_plexon(35);
@@ -256,7 +255,6 @@ void Lead_on(){
 			write_plexon(36);
 			while(timer_expired()==0);
 			Gon_off(4,0);
-			Gon_off(0,1);
 			Gflush(1);
 			ob_pos = 0; //Clear value
 			write_plexon(39);
@@ -264,7 +262,6 @@ void Lead_on(){
 		
 		else{
 			set_timer(STIM_ON);
-			Gon_off(0,0);
 			Gon_off(1,1);
 			Gflush(1);
 			write_plexon(40+stimct);
@@ -278,7 +275,6 @@ void Lead_on(){
 			while(timer_expired()==0);
 			
 			set_timer(STIM_ON);
-			Gon_off(0,1);
 			Gon_off(2,1);
 			Gflush(1);
 			write_plexon(50+stimct);
