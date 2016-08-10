@@ -240,34 +240,13 @@ void Lead_on(){
 	 Gon_off(0,0);
 	 
 	 stimct = 2;
-	 while(stimct<8){
-
-		if (stimct == ob_pos){
-			set_timer(STIM_ON);
-			Gon_off(1,1);
-			Gflush(1);
-			write_plexon(35);
-			while(timer_expired()==0);
-			Gon_off(1,0);
-			Gflush(1);
-			write_plexon(39);
+	 
+	 if (odpos<1){
+		 
+		 while(stimct<8){
 			
-			set_timer(INTRA_DELAY);
-			while(timer_expired()==0);
+			witch2 = random(1,8);
 			
-			set_timer(STIM_ON);
-			Gon_off(8,1);
-			Gflush(1);
-			write_plexon(36);
-			while(timer_expired()==0);
-			Gon_off(8,0);
-			Gflush(1);
-			ob_pos = 0; //Clear value
-			stimct = stimct -1;
-			write_plexon(39);
-		}
-		
-		else{
 			set_timer(STIM_ON);
 			Gon_off(1,1);
 			Gflush(1);
@@ -282,20 +261,83 @@ void Lead_on(){
 			while(timer_expired()==0);
 			
 			set_timer(STIM_ON);
-			Gon_off(stimct,1);
+			Gon_off(witch2,1);
 			Gflush(1);
-			write_plexon(50+stimct);
+			write_plexon(50+witch2);
 			write_plexon(31+2);
 			while(timer_expired()==0);
-			Gon_off(stimct,0);
+			Gon_off(witch2,0);
 			Gflush(1);
 			write_plexon(39);
+			
+			
+			stimct = stimct+1;
+			set_timer(INTER_DELAY);
+			while(timer_expired()==0);
 		}
-		
-		stimct = stimct+1;
-		set_timer(INTER_DELAY);
-		while(timer_expired()==0);
 	}
+	 
+	 else{
+	 
+		 while(stimct<8){
+		 
+			witch2 = random(1,7);
+
+			if (stimct == ob_pos){
+				set_timer(STIM_ON);
+				Gon_off(1,1);
+				Gflush(1);
+				write_plexon(35);
+				while(timer_expired()==0);
+				Gon_off(1,0);
+				Gflush(1);
+				write_plexon(39);
+				
+				set_timer(INTRA_DELAY);
+				while(timer_expired()==0);
+				
+				set_timer(STIM_ON);
+				Gon_off(8,1);
+				Gflush(1);
+				write_plexon(36);
+				while(timer_expired()==0);
+				Gon_off(8,0);
+				Gflush(1);
+				ob_pos = 0; //Clear value
+				stimct = stimct -1;
+				write_plexon(39);
+			}
+			
+			else{
+				set_timer(STIM_ON);
+				Gon_off(1,1);
+				Gflush(1);
+				write_plexon(40+stimct);
+				write_plexon(31+1);
+				while(timer_expired()==0);
+				Gon_off(1,0);
+				Gflush(1);
+				write_plexon(39);
+				
+				set_timer(INTRA_DELAY);
+				while(timer_expired()==0);
+				
+				set_timer(STIM_ON);
+				Gon_off(stimct,1);
+				Gflush(1);
+				write_plexon(50+stimct);
+				write_plexon(31+2);
+				while(timer_expired()==0);
+				Gon_off(stimct,0);
+				Gflush(1);
+				write_plexon(39);
+			}
+			
+			stimct = stimct+1;
+			set_timer(INTER_DELAY);
+			while(timer_expired()==0);
+	 }
+	 
 	 
 	 Gon_off(0,1);
 	 Gflush(1);
@@ -350,7 +392,7 @@ void response(){
 					
 				case K_SPACEBAR:
 					write_plexon(65);
-					if (cond>2 & cond<30){
+					if (cond>2 & cond<31){
 						fail_flag = 0;
 						Mprintf(3,"Correct");
 						write_plexon(70);
