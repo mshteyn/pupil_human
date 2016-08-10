@@ -242,10 +242,8 @@ void Lead_on(){
 	 stimct = 2;
 	 
 	 if (odpos<1){
-		 
+	 
 		 while(stimct<8){
-			
-			witch2 = random(1,8);
 			
 			set_timer(STIM_ON);
 			Gon_off(1,1);
@@ -261,12 +259,12 @@ void Lead_on(){
 			while(timer_expired()==0);
 			
 			set_timer(STIM_ON);
-			Gon_off(witch2,1);
+			Gon_off(stimct,1);
 			Gflush(1);
-			write_plexon(50+witch2);
+			write_plexon(50+stimct);
 			write_plexon(31+2);
 			while(timer_expired()==0);
-			Gon_off(witch2,0);
+			Gon_off(stimct,0);
 			Gflush(1);
 			write_plexon(39);
 			
@@ -281,8 +279,6 @@ void Lead_on(){
 	 
 		 while(stimct<8){
 		 
-			witch2 = random(1,7);
-
 			if (stimct == ob_pos){
 				set_timer(STIM_ON);
 				Gon_off(1,1);
