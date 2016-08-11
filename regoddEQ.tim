@@ -241,7 +241,7 @@ void Lead_on(){
 	 
 	 stimct = 2;
 	 
-	 if (odpos<1){
+	 if (ob_pos<1){
 	 
 		 while(stimct<8){
 			
@@ -332,8 +332,8 @@ void Lead_on(){
 			stimct = stimct+1;
 			set_timer(INTER_DELAY);
 			while(timer_expired()==0);
-	 }
-	 
+		}
+	}
 	 
 	 Gon_off(0,1);
 	 Gflush(1);
