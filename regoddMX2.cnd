@@ -1,0 +1,83 @@
+COND# TEST0 TEST1 TEST2 TEST3 TEST4 TEST5 TEST6 TEST7 TEST8 TEST9 BCKGND TIMING TRIAL_TYPE FIX_ID ---COLOR-PALETTE---
+    1  0                                                           -4      1          2     -4     default.lut
+    2  0      0     0                                              -4      3          2     -4     default.lut
+    3  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+    4  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+	5  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+    6  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+    7  0      1     1     1     1     2     1     1      1    -1   -4      2          2     -4     default.lut
+    8  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+    9  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   10  0      2     2     2     2     1     2     2      2    -1   -4      2          2     -4     default.lut
+   11  0      3     4     5     6     7     8     9      1    -1   -4      2          2     -4     default.lut
+   12  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   13  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   14  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   15  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut
+   16  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut      
+   17  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut   
+   18  0      11    12    13    14    15    16    17     2    -1   -4      2          2     -4     default.lut   
+   19  0      1     1           1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   20  0      2     2     2           2     2     2      2    -1   -4      2          2     -4     default.lut
+   21  0      6     9     5     3           8     4      10   -1   -4      2          2     -4     default.lut
+   22  0      12    18    13    14    15          17     11   -1   -4      2          2     -4     default.lut
+   23  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   24  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   25  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   26  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   27  0      1     1     1     1     2     1     1      1    -1   -4      2          2     -4     default.lut
+   28  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   29  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   30  0      2     2     2     2     1     2     2      2    -1   -4      2          2     -4     default.lut
+   31  0      3     4     5     6     7     8     9      1    -1   -4      2          2     -4     default.lut
+   32  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   33  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   34  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   35  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut
+   36  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut      
+   37  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut   
+   38  0      11    12    13    14    15    16    17     2    -1   -4      2          2     -4     default.lut   
+   39  0      1     1     1           1     1     1      1    -1   -4      2          2     -4     default.lut
+   40  0      2     2     2     2           2     2      2    -1   -4      2          2     -4     default.lut
+   41  0      7     5     4     6      3          9      10   -1   -4      2          2     -4     default.lut
+   42  0      14    17          18    15    16    12     11   -1   -4      2          2     -4     default.lut
+   43  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   44  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   45  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   46  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   47  0      1     1     1     1     2     1     1      1    -1   -4      2          2     -4     default.lut
+   48  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   49  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   50  0      2     2     2     2     1     2     2      2    -1   -4      2          2     -4     default.lut
+   51  0      3     4     5     6     7     8     9      1    -1   -4      2          2     -4     default.lut
+   52  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   53  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   54  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   55  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut
+   56  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut      
+   57  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut   
+   58  0      11    12    13    14    15    16    17     2    -1   -4      2          2     -4     default.lut
+   59  0      1     1     1     1           1     1      1    -1   -4      2          2     -4     default.lut
+   60  0      2     2     2     2     2           2      2    -1   -4      2          2     -4     default.lut
+   61  0      10    9           6     7     8     4      3    -1   -4      2          2     -4     default.lut
+   62  0      15    16    17          13    11    12     18   -1   -4      2          2     -4     default.lut
+   63  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   64  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   65  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   66  0      1     1     1     1     1     1     1      1    -1   -4      2          2     -4     default.lut
+   67  0      1     1     1     1     2     1     1      1    -1   -4      2          2     -4     default.lut
+   68  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   69  0      2     2     2     2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   70  0      2     2     2     2     1     2     2      2    -1   -4      2          2     -4     default.lut
+   71  0      3     4     5     6     7     8     9      1    -1   -4      2          2     -4     default.lut
+   72  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   73  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   74  0      3     4     5     6     7     8     9      10   -1   -4      2          2     -4     default.lut
+   75  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut
+   76  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut      
+   77  0      11    12    13    14    15    16    17     18   -1   -4      2          2     -4     default.lut   
+   78  0      11    12    13    14    15    16    17     2    -1   -4      2          2     -4     default.lut   
+   79  0      1     1     1     1     1           1      1    -1   -4      2          2     -4     default.lut
+   80  0      2     2           2     2     2     2      2    -1   -4      2          2     -4     default.lut
+   81  0      3     4     5           7     8     9      10   -1   -4      2          2     -4     default.lut
+   82  0      11    12    13    14          16    17     18   -1   -4      2          2     -4     default.lut
