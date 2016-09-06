@@ -68,8 +68,8 @@ void stop_plexon();
 #define ACQUIRE_FIX  5000
 #define MN_FIX_DELAY  200
 #define MX_FIX_DELAY  400
-#define STIM_ON        50
-#define INTER_DELAY   250
+#define STIM_ON        75
+#define INTER_DELAY   225
 #define MV_DELAY     2000  /*delay for mvmnt*/
 #define FB_DELAY      500
 #define FB_ON         250  /*feedback of right or wrong */
